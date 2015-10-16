@@ -17,6 +17,7 @@ root_directory = os.path.dirname(os.path.realpath(__file__))
 host_nickname = socket.gethostname().split('.')[0]
 portals = {
     'portable': 'http://portable.chemsem.com',
+    'staging': 'http://staging.chemsem.com',
     'cloud': 'http://chemsemplus.cloudapp.net'}
 
 
@@ -308,7 +309,7 @@ for fl, ttl, pj in triplet_store:
     e_type.text = "8"  # TODO priv = 9, protect = 10, public = 8
 
     e_filename = root.find(env_ns + 'filename')
-    e_filename.text = fl + '.csx'
+    e_filename.text = fl 
 
     e_filebuffer = root.find(env_ns + 'fileBuffer')
     e_filebuffer.text = cml64

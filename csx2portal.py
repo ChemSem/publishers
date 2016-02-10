@@ -5,6 +5,7 @@ import sys
 import glob
 import base64
 import socket
+import ssl
 import fnmatch
 import getpass
 import urllib2
@@ -16,9 +17,10 @@ import xml.etree.ElementTree as ET
 root_directory = os.path.dirname(os.path.realpath(__file__))
 host_nickname = socket.gethostname().split('.')[0]
 portals = {
-    'portable': 'http://portable.chemsem.com',
-    'staging': 'http://staging.chemsem.com',
-    'cloud': 'http://chemsemplus.cloudapp.net'}
+    'portable': 'https://portable.chemsem.com',
+    'staging': 'https://staging.chemsem.com',
+    'demo': 'https://demo386.chemsem.com',
+    'cloud': 'https://www.chemsem.com'}
 
 
 def find_files(directory, pattern):
@@ -267,8 +269,8 @@ for fl, ttl, pj in triplet_store:
     print 'File {0} ...'.format(fl)
 
     with open(fl) as handle:
-        cml64 = base64.b64encode(handle.read())
-    print '  ... CML file read in and converted into base64'
+        csx64 = base64.b64encode(handle.read())
+    print '  ... CSX file read in and converted into base64'
 
     # I don't think we want to glean these from CSX anymore
     # doc = etree.parse(fl)
@@ -312,7 +314,7 @@ for fl, ttl, pj in triplet_store:
     e_filename.text = fl 
 
     e_filebuffer = root.find(env_ns + 'fileBuffer')
-    e_filebuffer.text = cml64
+    e_filebuffer.text = csx64
 
     print '  ... REST envelope customized'
 
